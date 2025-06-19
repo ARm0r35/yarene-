@@ -3,102 +3,100 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Yaren için Sürpriz</title>
+<title>Yaren için Sürpriz Mektup</title>
 <style>
-  /* Sayfa genel stili */
-  body, html {
-    margin: 0; padding: 0; height: 100%;
-    background-color: #000010;
+  html, body {
+    margin:0; padding:0; height:100%;
+    background: black;
     overflow: hidden;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: Arial, sans-serif;
     color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
   }
-  /* Yıldızlar arka plan */
   #stars {
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
+    position: fixed; top:0; left:0; width:100%; height:100%;
     background: black;
     z-index: 0;
   }
-  /* Başlık ve yazı */
-  .content {
+  .star {
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+    opacity: 0.8;
+    animation: twinkle 3s infinite alternate;
+  }
+  @keyframes twinkle {
+    0% {opacity: 0.2;}
+    100% {opacity: 1;}
+  }
+  #container {
     position: relative;
     z-index: 10;
-    text-align: center;
-    max-width: 400px;
-    padding: 20px;
-    background: rgba(0,0,20,0.6);
-    border-radius: 10px;
-  }
-  h1 {
-    margin-bottom: 1em;
-  }
-  p {
-    font-size: 1.1em;
-    margin-bottom: 1.5em;
-  }
-  /* Butonlar */
-  .buttons {
+    height: 100%;
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    gap: 20px;
+    align-items: center;
+    padding: 20px;
+    text-align: center;
+  }
+  #letterBox {
+    background: rgba(0,0,30,0.7);
+    border-radius: 12px;
+    max-width: 600px;
+    padding: 20px;
+    max-height: 300px;
+    overflow-y: auto;
+    font-size: 18px;
+    line-height: 1.5;
+    margin-bottom: 30px;
+    user-select: text;
+  }
+  #buttons {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
   }
   button {
-    padding: 12px 25px;
-    font-size: 1.2em;
-    border-radius: 50px;
+    padding: 12px 28px;
+    font-size: 18px;
+    border-radius: 30px;
     border: none;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    font-weight: bold;
     user-select: none;
-    font-weight: 600;
-    min-width: 100px;
+    transition: background-color 0.3s;
+    min-width: 120px;
   }
   button#yes {
-    background-color: #4CAF50;
+    background-color: #28a745;
     color: white;
   }
   button#yes:hover {
-    background-color: #45a049;
+    background-color: #1e7e34;
   }
   button#no {
-    background-color: #f44336;
+    background-color: #dc3545;
     color: white;
   }
   button#no:hover {
-    background-color: #d32f2f;
+    background-color: #a71d2a;
   }
-  /* Error mesajı */
-  #errorMessage {
-    margin-top: 20px;
-    color: #f44336;
-    font-weight: 700;
+  #errorMsg {
+    margin-top: 15px;
+    color: #ff4c4c;
+    font-weight: bold;
     display: none;
   }
-  /* Kalp animasyonu için svg container */
-  #heartContainer {
+  #heart {
     position: fixed;
-    top: 50%;
-    left: 50%;
+    top: 50%; left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 20;
-    display: none;
-    pointer-events: none;
-  }
-  /* T ve Y harfleri */
-  #heartText {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 4rem;
+    font-size: 120px;
     font-weight: bold;
     color: white;
+    display: none;
     user-select: none;
+    z-index: 20;
   }
 </style>
 </head>
@@ -106,91 +104,65 @@
 
 <div id="stars"></div>
 
-<div class="content" id="content">
-  <h1>Merhaba Yaren,</h1>
-  <p>
-    Eğer benimle tekrar bir zaman ve bir hayat geçirmek istiyorsan, lütfen <strong>EVET</strong> butonuna bas.<br />
-    İstemiyorsan <strong>HAYIR</strong> butonuna basabilirsin.
-  </p>
-  <div class="buttons">
+<div id="container">
+  <h1>Mektubum</h1>
+  <div id="letterBox">
+    <!-- Buraya mektubun metnini koy -->
+    Sevgili Yaren,<br><br>
+    Sana yaşattığım acılar için çok üzgünüm. Biliyorum, kolay olmadı ama ben yine de birlikte güzel bir hayat geçirme umudumu koruyorum.<br><br>
+    Eğer sen de istersen, bana bir şans daha verirsen, bu kez çok daha iyi olacağına söz veriyorum.<br><br>
+    Sevgilerimle,<br>
+    T
+  </div>
+  <div id="buttons">
     <button id="yes">EVET</button>
     <button id="no">HAYIR</button>
   </div>
-  <div id="errorMessage">Buton bulunamadı, lütfen tekrar dene.</div>
+  <div id="errorMsg">Buton bulunamadı, lütfen tekrar dene.</div>
 </div>
 
-<div id="heartContainer">
-  <!-- Kalp şekli SVG -->
-  <svg width="200" height="180" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <path id="heartPath" d="M12 21C12 21 3 13.5 3 8.5C3 5.5 5.5 3 8.5 3C10.5 3 12 4.5 12 4.5C12 4.5 13.5 3 15.5 3C18.5 3 21 5.5 21 8.5C21 13.5 12 21 12 21Z" />
-  </svg>
-  <div id="heartText">T &hearts; Y</div>
-</div>
+<div id="heart">T ♥ Y</div>
 
 <script>
-  // Yıldız efekti oluşturma
+  // Yıldızları oluştur
   const starsContainer = document.getElementById('stars');
   const starCount = 150;
 
-  function createStar() {
+  function randomRange(min, max) {
+    return Math.random() * (max - min) + min;
+  }
+
+  for(let i=0; i < starCount; i++) {
     const star = document.createElement('div');
-    star.style.position = 'absolute';
-    star.style.backgroundColor = 'white';
-    star.style.borderRadius = '50%';
-    star.style.width = `${Math.random() * 2 + 1}px`;
-    star.style.height = star.style.width;
-    star.style.top = `${Math.random() * 100}%`;
-    star.style.left = `${Math.random() * 100}%`;
-    star.style.opacity = Math.random();
-    star.style.animation = `twinkle ${1 + Math.random() * 3}s infinite alternate`;
+    star.classList.add('star');
+    const size = randomRange(1, 3);
+    star.style.width = size + 'px';
+    star.style.height = size + 'px';
+    star.style.top = randomRange(0, 100) + '%';
+    star.style.left = randomRange(0, 100) + '%';
+    star.style.animationDuration = (randomRange(2, 4)) + 's';
     starsContainer.appendChild(star);
   }
-
-  for(let i = 0; i < starCount; i++) {
-    createStar();
-  }
-
-  // Twinkle animasyonu için CSS ekle
-  const styleSheet = document.createElement("style");
-  styleSheet.textContent = `
-    @keyframes twinkle {
-      from {opacity: 0.2;}
-      to {opacity: 1;}
-    }
-  `;
-  document.head.appendChild(styleSheet);
 
   // Elementler
   const yesBtn = document.getElementById('yes');
   const noBtn = document.getElementById('no');
-  const errorMsg = document.getElementById('errorMessage');
-  const heartContainer = document.getElementById('heartContainer');
-  const stars = starsContainer.children;
+  const errorMsg = document.getElementById('errorMsg');
+  const container = document.getElementById('container');
+  const heart = document.getElementById('heart');
 
-  // EVET butonuna basılınca
   yesBtn.addEventListener('click', () => {
     errorMsg.style.display = 'none';
-    document.getElementById('content').style.display = 'none';
-    heartContainer.style.display = 'block';
+    container.style.display = 'none';
+    heart.style.display = 'block';
 
-    // Yıldızları kalbe dönüştür (basit animasyon)
-    for(let i = 0; i < stars.length; i++) {
-      const star = stars[i];
-      const rect = heartContainer.getBoundingClientRect();
+    // Yıldızları kalbe dönüşüyor gibi yap (basit efekt)
+    starsContainer.style.transition = 'opacity 2s ease';
+    starsContainer.style.opacity = '0.3';
 
-      // Kalp merkez koordinatları
-      const centerX = rect.left + rect.width / 2;
-      const centerY = rect.top + rect.height / 2;
-
-      // Yıldızları kalp merkezine doğru yavaşça taşı
-      star.style.transition = 'all 2s ease-in-out';
-      star.style.top = `${centerY + (Math.random() - 0.5) * 100}px`;
-      star.style.left = `${centerX + (Math.random() - 0.5) * 100}px`;
-      star.style.opacity = '0';
-    }
+    // Burada gelişmiş animasyon istersen ekleyebiliriz
   });
 
-  // HAYIR butonuna basılınca
   noBtn.addEventListener('click', () => {
     errorMsg.style.display = 'block';
   });
