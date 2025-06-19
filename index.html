@@ -1,172 +1,193 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Yaren için Sürpriz Mektup</title>
-<style>
-  html, body {
-    margin:0; padding:0; height:100%;
-    background: black;
-    overflow: hidden;
-    font-family: Arial, sans-serif;
-    color: white;
-  }
-  #stars {
-    position: fixed; top:0; left:0; width:100%; height:100%;
-    background: black;
-    z-index: 0;
-  }
-  .star {
-    position: absolute;
-    background: white;
-    border-radius: 50%;
-    opacity: 0.8;
-    animation: twinkle 3s infinite alternate;
-  }
-  @keyframes twinkle {
-    0% {opacity: 0.2;}
-    100% {opacity: 1;}
-  }
-  #container {
-    position: relative;
-    z-index: 10;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    text-align: center;
-  }
-  #letterBox {
-    background: rgba(0,0,30,0.7);
-    border-radius: 12px;
-    max-width: 600px;
-    padding: 20px;
-    max-height: 300px;
-    overflow-y: auto;
-    font-size: 18px;
-    line-height: 1.5;
-    margin-bottom: 30px;
-    user-select: text;
-  }
-  #buttons {
-    display: flex;
-    gap: 30px;
-    justify-content: center;
-  }
-  button {
-    padding: 12px 28px;
-    font-size: 18px;
-    border-radius: 30px;
-    border: none;
-    cursor: pointer;
-    font-weight: bold;
-    user-select: none;
-    transition: background-color 0.3s;
-    min-width: 120px;
-  }
-  button#yes {
-    background-color: #28a745;
-    color: white;
-  }
-  button#yes:hover {
-    background-color: #1e7e34;
-  }
-  button#no {
-    background-color: #dc3545;
-    color: white;
-  }
-  button#no:hover {
-    background-color: #a71d2a;
-  }
-  #errorMsg {
-    margin-top: 15px;
-    color: #ff4c4c;
-    font-weight: bold;
-    display: none;
-  }
-  #heart {
-    position: fixed;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 120px;
-    font-weight: bold;
-    color: white;
-    display: none;
-    user-select: none;
-    z-index: 20;
-  }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Yaren'e Mektup</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background: black;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+      color: white;
+    }
+
+    #stars {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+
+    .star {
+      position: absolute;
+      background: white;
+      border-radius: 50%;
+      opacity: 0.8;
+      animation: twinkle 3s infinite alternate;
+    }
+
+    @keyframes twinkle {
+      0% { opacity: 0.2; }
+      100% { opacity: 1; }
+    }
+
+    #container {
+      position: relative;
+      z-index: 10;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      text-align: center;
+    }
+
+    #letterBox {
+      background: rgba(0, 0, 30, 0.7);
+      border-radius: 12px;
+      max-width: 600px;
+      padding: 20px;
+      max-height: 400px;
+      overflow-y: auto;
+      font-size: 17px;
+      line-height: 1.6;
+      margin-bottom: 30px;
+      user-select: text;
+    }
+
+    #buttons {
+      display: flex;
+      gap: 30px;
+      justify-content: center;
+    }
+
+    button {
+      padding: 12px 28px;
+      font-size: 18px;
+      border-radius: 30px;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      user-select: none;
+      transition: background-color 0.3s;
+      min-width: 120px;
+    }
+
+    button#yes {
+      background-color: #28a745;
+      color: white;
+    }
+
+    button#yes:hover {
+      background-color: #1e7e34;
+    }
+
+    button#no {
+      background-color: #dc3545;
+      color: white;
+    }
+
+    button#no:hover {
+      background-color: #a71d2a;
+    }
+
+    #errorMsg {
+      margin-top: 15px;
+      color: #ff4c4c;
+      font-weight: bold;
+      display: none;
+    }
+
+    #heart {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 100px;
+      font-weight: bold;
+      color: white;
+      display: none;
+      user-select: none;
+      z-index: 20;
+    }
+  </style>
 </head>
 <body>
 
-<div id="stars"></div>
+  <div id="stars"></div>
 
-<div id="container">
-  <h1>Mektubum</h1>
-  <div id="letterBox">
-    <!-- Buraya mektubun metnini koy -->
-    Sevgili Yaren,<br><br>
-    Sana yaşattığım acılar için çok üzgünüm. Biliyorum, kolay olmadı ama ben yine de birlikte güzel bir hayat geçirme umudumu koruyorum.<br><br>
-    Eğer sen de istersen, bana bir şans daha verirsen, bu kez çok daha iyi olacağına söz veriyorum.<br><br>
-    Sevgilerimle,<br>
-    T
+  <div id="container">
+    <h1>Yaren'e Mektup</h1>
+    <div id="letterBox">
+      Sevgili Yaren,<br><br>
+      Her satırını yazarken seni düşündüğüm bu mektubu, kalbimin en derin yerinden yazıyorum.<br>
+      Ne zaman adını duysam, kalbim hâlâ aynı heyecanla çarpıyor.<br>
+      Uzaktan bile olsa, seninle geçen her an, benim için kıymetliydi.<br><br>
+      Hatalarım oldu. Belki kalbini kırdım. Belki de birlikte bir yol çizerken, ben yönümü kaybettim.<br>
+      Ama bilmeni isterim ki, pişmanlıkla değil; özlemle, sevgiyle ve umutla doluyum.<br><br>
+      Bu satırlar bir özür değil sadece...<br>
+      Aynı zamanda bir umut:<br>
+      Belki bir gün, bir zaman, yeniden.<br>
+      Belki bir kahve, belki bir yürüyüş, belki bir “merhaba” ile başlayacak yeni bir hayat.<br><br>
+      Eğer kalbin hâlâ bir yerinde beni taşıyorsa,<br>
+      Bu gökyüzünde sadece yıldızlar değil, bir kalp daha parlayacak:<br><br>
+      <strong>T ♥ Y</strong><br><br>
+      Sevgilerimle,<br>
+      <strong>Tuğra</strong>
+    </div>
+    <div id="buttons">
+      <button id="yes">EVET</button>
+      <button id="no">HAYIR</button>
+    </div>
+    <div id="errorMsg">Buton bulunamadı, lütfen tekrar dene.</div>
   </div>
-  <div id="buttons">
-    <button id="yes">EVET</button>
-    <button id="no">HAYIR</button>
-  </div>
-  <div id="errorMsg">Buton bulunamadı, lütfen tekrar dene.</div>
-</div>
 
-<div id="heart">T ♥ Y</div>
+  <div id="heart">T ♥ Y</div>
 
-<script>
-  // Yıldızları oluştur
-  const starsContainer = document.getElementById('stars');
-  const starCount = 150;
+  <script>
+    const starsContainer = document.getElementById('stars');
+    const starCount = 150;
 
-  function randomRange(min, max) {
-    return Math.random() * (max - min) + min;
-  }
+    function randomRange(min, max) {
+      return Math.random() * (max - min) + min;
+    }
 
-  for(let i=0; i < starCount; i++) {
-    const star = document.createElement('div');
-    star.classList.add('star');
-    const size = randomRange(1, 3);
-    star.style.width = size + 'px';
-    star.style.height = size + 'px';
-    star.style.top = randomRange(0, 100) + '%';
-    star.style.left = randomRange(0, 100) + '%';
-    star.style.animationDuration = (randomRange(2, 4)) + 's';
-    starsContainer.appendChild(star);
-  }
+    for (let i = 0; i < starCount; i++) {
+      const star = document.createElement('div');
+      star.classList.add('star');
+      const size = randomRange(1, 3);
+      star.style.width = size + 'px';
+      star.style.height = size + 'px';
+      star.style.top = randomRange(0, 100) + '%';
+      star.style.left = randomRange(0, 100) + '%';
+      star.style.animationDuration = randomRange(2, 4) + 's';
+      starsContainer.appendChild(star);
+    }
 
-  // Elementler
-  const yesBtn = document.getElementById('yes');
-  const noBtn = document.getElementById('no');
-  const errorMsg = document.getElementById('errorMsg');
-  const container = document.getElementById('container');
-  const heart = document.getElementById('heart');
+    const yesBtn = document.getElementById('yes');
+    const noBtn = document.getElementById('no');
+    const errorMsg = document.getElementById('errorMsg');
+    const container = document.getElementById('container');
+    const heart = document.getElementById('heart');
 
-  yesBtn.addEventListener('click', () => {
-    errorMsg.style.display = 'none';
-    container.style.display = 'none';
-    heart.style.display = 'block';
+    yesBtn.addEventListener('click', () => {
+      errorMsg.style.display = 'none';
+      container.style.display = 'none';
+      heart.style.display = 'block';
+      starsContainer.style.transition = 'opacity 2s ease';
+      starsContainer.style.opacity = '0.3';
+    });
 
-    // Yıldızları kalbe dönüşüyor gibi yap (basit efekt)
-    starsContainer.style.transition = 'opacity 2s ease';
-    starsContainer.style.opacity = '0.3';
-
-    // Burada gelişmiş animasyon istersen ekleyebiliriz
-  });
-
-  noBtn.addEventListener('click', () => {
-    errorMsg.style.display = 'block';
-  });
-</script>
-
+    noBtn.addEventListener('click', () => {
+      errorMsg.style.display = 'block';
+    });
+  </script>
 </body>
 </html>
