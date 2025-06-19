@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Yaren için Sürpriz</title>
+<style>
+  /* Sayfa genel stili */
+  body, html {
+    margin: 0; padding: 0; height: 100%;
+    background-color: #000010;
+    overflow: hidden;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  /* Yıldızlar arka plan */
+  #stars {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: black;
+    z-index: 0;
+  }
+  /* Başlık ve yazı */
+  .content {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    max-width: 400px;
+    padding: 20px;
+    background: rgba(0,0,20,0.6);
+    border-radius: 10px;
+  }
+  h1 {
+    margin-bottom: 1em;
+  }
+  p {
+    font-size: 1.1em;
+    margin-bottom: 1.5em;
+  }
+  /* Butonlar */
+  .buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+  }
+  button {
+    padding: 12px 25px;
+    font-size: 1.2em;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    user-select: none;
+    font-weight: 600;
+    min-width: 100px;
+  }
+  button#yes {
+    background-color: #4CAF50;
+    color: white;
+  }
+  button#yes:hover {
+    background-color: #45a049;
+  }
+  button#no {
+    background-color: #f44336;
+    color: white;
+  }
+  button#no:hover {
+    background-color: #d32f2f;
+  }
+  /* Error mesajı */
+  #errorMessage {
+    margin-top: 20px;
+    color: #f44336;
+    font-weight: 700;
+    display: none;
+  }
+  /* Kalp animasyonu için svg container */
+  #heartContainer {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 20;
+    display: none;
+    pointer-events: none;
+  }
+  /* T ve Y harfleri */
+  #heartText {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 4rem;
+    font-weight: bold;
+    color: white;
+    user-select: none;
+  }
+</style>
+</head>
+<body>
+
+<div id="stars"></div>
+
+<div class="content" id="content">
+  <h1>Merhaba Yaren,</h1>
+  <p>
+    Eğer benimle tekrar bir zaman ve bir hayat geçirmek istiyorsan, lütfen <strong>EVET</strong> butonuna bas.<br />
+    İstemiyorsan <strong>HAYIR</strong> butonuna basabilirsin.
+  </p>
+  <div class="buttons">
+    <button id="yes">EVET</button>
+    <button id="no">HAYIR</button>
+  </div>
+  <div id="errorMessage">Buton bulunamadı, lütfen tekrar dene.</div>
+</div>
+
+<div id="heartContainer">
+  <!-- Kalp şekli SVG -->
+  <svg width="200" height="180" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path id="heartPath" d="M12 21C12 21 3 13.5 3 8.5C3 5.5 5.5 3 8.5 3C10.5 3 12 4.5 12 4.5C12 4.5 13.5 3 15.5 3C18.5 3 21 5.5 21 8.5C21 13.5 12 21 12 21Z" />
+  </svg>
+  <div id="heartText">T &hearts; Y</div>
+</div>
+
+<script>
+  // Yıldız efekti oluşturma
+  const starsContainer = document.getElementById('stars');
+  const starCount = 150;
+
+  function createStar() {
+    const star = document.createElement('div');
+    star.style.position = 'absolute';
+    star.style.backgroundColor = 'white';
+    star.style.borderRadius = '50%';
+    star.style.width = `${Math.random() * 2 + 1}px`;
+    star.style.height = star.style.width;
+    star.style.top = `${Math.random() * 100}%`;
+    star.style.left = `${Math.random() * 100}%`;
+    star.style.opacity = Math.random();
+    star.style.animation = `twinkle ${1 + Math.random() * 3}s infinite alternate`;
+    starsContainer.appendChild(star);
+  }
+
+  for(let i = 0; i < starCount; i++) {
+    createStar();
+  }
+
+  // Twinkle animasyonu için CSS ekle
+  const styleSheet = document.createElement("style");
+  styleSheet.textContent = `
+    @keyframes twinkle {
+      from {opacity: 0.2;}
+      to {opacity: 1;}
+    }
+  `;
+  document.head.appendChild(styleSheet);
+
+  // Elementler
+  const yesBtn = document.getElementById('yes');
+  const noBtn = document.getElementById('no');
+  const errorMsg = document.getElementById('errorMessage');
+  const heartContainer = document.getElementById('heartContainer');
+  const stars = starsContainer.children;
+
+  // EVET butonuna basılınca
+  yesBtn.addEventListener('click', () => {
+    errorMsg.style.display = 'none';
+    document.getElementById('content').style.display = 'none';
+    heartContainer.style.display = 'block';
+
+    // Yıldızları kalbe dönüştür (basit animasyon)
+    for(let i = 0; i < stars.length; i++) {
+      const star = stars[i];
+      const rect = heartContainer.getBoundingClientRect();
+
+      // Kalp merkez koordinatları
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+
+      // Yıldızları kalp merkezine doğru yavaşça taşı
+      star.style.transition = 'all 2s ease-in-out';
+      star.style.top = `${centerY + (Math.random() - 0.5) * 100}px`;
+      star.style.left = `${centerX + (Math.random() - 0.5) * 100}px`;
+      star.style.opacity = '0';
+    }
+  });
+
+  // HAYIR butonuna basılınca
+  noBtn.addEventListener('click', () => {
+    errorMsg.style.display = 'block';
+  });
+</script>
+
+</body>
+</html>
